@@ -11,7 +11,7 @@ app.use(logger('development'));
 // Routes
 app.use(indexRouter);
 
-app.use(errorHandler);
 app.use(pageNotFound);
+app.use(errorHandler);
 
 module.exports = app;

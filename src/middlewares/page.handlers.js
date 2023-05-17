@@ -8,5 +8,4 @@ const pageNotFound = (req, res, _next) => {
   });
 };
 
-
 module.exports = pageNotFound;
