@@ -20,3 +20,19 @@ exports.updateUserSchema = Joi.object({
   genre: Joi.string().optional(),
   active: Joi.boolean().optional(),
 });
+
+exports.createNoteSchema = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+  username: Joi.string().required(),
+  isPublic: Joi.boolean().required(),
+  isDeleted: Joi.boolean().required()
+});
+
+exports.updateNoteSchema = Joi.object({
+  title: Joi.string().optional(),
+  content: Joi.string().optional(),
+  username: Joi.string().optional(),
+  isPublic: Joi.boolean().optional(),
+  isDeleted: Joi.boolean().optional()
+});

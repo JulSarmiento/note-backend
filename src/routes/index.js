@@ -1,6 +1,7 @@
 const express = require('express');
 const httpStatus = require('http-status');
 const usersRouter = require('./users.routes.js');
+const notesRouter = require('./notes.routes.js');
 
 const router = express.Router();
 
@@ -11,7 +12,8 @@ router.get('/health', (_req, res) => {
     enviroment: process.env.ENVIRONMENT || 'Not Found'
   });
 })
-  .use('/users', usersRouter);
+  .use('/users', usersRouter)
+  .use('/notes', notesRouter);
 
 
 module.exports = router;

@@ -2,7 +2,7 @@ const httpStatus = require("http-status");
 
 const User = require("../models/users.model");
 
-exports.getAll = async (req, res, next) => {
+exports.getAll = async (_req, res, next) => {
   try {
     const users = await User.find({});
     res.status(httpStatus.OK).json(users);
