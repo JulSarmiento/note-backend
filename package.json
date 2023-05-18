@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "start:dev": "node --watch server.js"
+    "start:dev": "node --watch server.js",
+    "nodemon": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "joi": "^17.9.2",
     "mongoose": "^7.1.1",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.22",
     "passport": "^0.6.0"
   }
 }

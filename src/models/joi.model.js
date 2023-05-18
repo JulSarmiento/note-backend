@@ -9,6 +9,7 @@ exports.createUserSchema = Joi.object({
   password: Joi.string().required(),
   genre: Joi.string().required(),
   active: Joi.boolean().required(),
+  notes: Joi.array().optional(),
 });
 
 exports.updateUserSchema = Joi.object({
@@ -19,6 +20,7 @@ exports.updateUserSchema = Joi.object({
   password: Joi.string().optional(),
   genre: Joi.string().optional(),
   active: Joi.boolean().optional(),
+  notes: Joi.array().optional(),
 });
 
 exports.createNoteSchema = Joi.object({
