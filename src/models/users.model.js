@@ -45,7 +45,7 @@ let userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-    notes: [] ,
+    
   },
   {
     timestamps: true,

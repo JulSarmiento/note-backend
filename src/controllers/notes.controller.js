@@ -1,7 +1,6 @@
 const httpStatus = require("http-status");
 
 const { Note } = require("../models");
-const { User } = require("../models");
 
 exports.getAll = async (_req, res, next) => {
   try {
@@ -14,27 +13,9 @@ exports.getAll = async (_req, res, next) => {
 
 exports.getByid = async (req, res, next) => {
   const { id } = req.params;
-  const { username } = req.body;
   try {
-    const user = await User.findById(username);
-    if (!user) {
-      return res.status(httpStatus.NOT_FOUND).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-
-    const note = await Note.findById(id);
-    if (!note) {
-      return res.status(httpStatus.NOT_FOUND).json({
-        success: false,
-        message: "Note not found",
-      });
-    }
-    res.status(httpStatus.OK).json({
-      user: user.username,
-      note
-    });
+    const note = await Note.findById(id).populate("username");
+    res.status(httpStatus.OK).json(note);
   } catch (error) {
     next(error);
   }
@@ -42,26 +23,10 @@ exports.getByid = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
-    const { title, username, content, isPublic, isDeleted } = req.body;
-    const user = await User.findById(username);
-    if (!user) {
-      return res.status(httpStatus.NOT_FOUND).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-    const newNote = {
-      title,
-      username: username._id,
-      content,
-      isPublic,
-      isDeleted
-    }
-    await Note.create(newNote);
+    const note = await Note.create(req.body);
     res.status(httpStatus.CREATED).json({
       success: true,
-      user: user.username,
-      data: newNote,
+      data: note,
     });
   } catch (error) {
     next(error);

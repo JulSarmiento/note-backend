@@ -1,6 +1,6 @@
 const httpStatus = require("http-status");
 
-const { User } = require("../models");
+const { User, Note } = require("../models");
 
 exports.getAll = async (_req, res, next) => {
   try {
@@ -15,15 +15,40 @@ exports.getByid = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const user = await User.findById(id).populate("notes");
-    if (!user) {
-      return res.status(httpStatus.NOT_FOUND).json({
-        success: false,
-        message: "User not found",
-      });
-    };
+    // const user = await User.aggregate([
+    //   {
+    //     $match: {
+    //       _id: id,
+    //     },
+    //     $lookup: {
+    //       from: "notes",
+    //       localField: "notes",
+    //       foreignField: "_id",
+    //       as: "notes",
+    //     },
+    //   },
+    // ]);
 
-    res.status(httpStatus.OK).json(user);
+    const user = await User.aggregate([
+      {
+        $match: {
+          username: username,
+        },
+      },
+      {
+        $lookup: {
+          from: "notes",
+          localField: "notes",
+          foreignField: "username",
+          as: "notes",
+        },
+      },
+    ])
+    // const user = await User.findById(id).populate({match: "username" , model: Note});
+    res.status(httpStatus.OK).json({
+      success: true,
+      data: user,
+    });
   } catch (error) {
     next(error);
   }
